@@ -34,3 +34,40 @@ describe('HU-01: agregar productos al carrito', () => {
     ]);
   });
 });
+
+describe('HU-01: limites de cantidad', () => {
+  test.each([
+    ['CP-02', 50],
+  ])('%s: acepta agregar %i unidades', (id, cantidad) => {
+    // Preparar
+    const { carrito, producto } = prepararCarrito();
+
+    // Ejecutar
+    carrito.agregarProducto(producto, cantidad);
+
+    // Verificar
+    expect(carrito.obtenerProductos()).toEqual([
+      {
+        ...producto,
+        cantidad,
+      },
+    ]);
+  });
+
+  test.each([
+    ['CP-03', 0],
+    ['CP-04', 51],
+  ])('%s: rechaza agregar %i unidades', (id, cantidad) => {
+    // Preparar
+    const { carrito, producto } = prepararCarrito();
+
+    // Ejecutar
+    const agregarCantidadInvalida = () => {
+      carrito.agregarProducto(producto, cantidad);
+    };
+
+    // Verificar
+    expect(agregarCantidadInvalida).toThrow('Cantidad invalida');
+    expect(carrito.obtenerProductos()).toEqual([]);
+  });
+});
