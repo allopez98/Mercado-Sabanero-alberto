@@ -71,3 +71,83 @@ describe('HU-01: limites de cantidad', () => {
     expect(carrito.obtenerProductos()).toEqual([]);
   });
 });
+
+describe('HU-01: inventario y productos repetidos', () => {
+  test('CP-05: rechaza un producto si el stock es insuficiente', () => {
+    // Preparar
+    const { carrito, producto, inventario } = prepararCarrito(4);
+
+    // Ejecutar
+    const agregarSinStock = () => {
+      carrito.agregarProducto(producto, 5);
+    };
+
+    // Verificar
+    expect(agregarSinStock).toThrow('Stock insuficiente');
+    expect(inventario.obtenerStock).toHaveBeenCalledWith('arroz');
+    expect(carrito.obtenerProductos()).toEqual([]);
+  });
+
+  test('CP-06: suma las cantidades al agregar el mismo producto', () => {
+    // Preparar
+    const { carrito, producto } = prepararCarrito();
+    carrito.agregarProducto(producto, 2);
+
+    // Ejecutar
+    carrito.agregarProducto(producto, 3);
+
+    // Verificar
+    expect(carrito.obtenerProductos()).toEqual([
+      { ...producto, cantidad: 5 },
+    ]);
+  });
+
+  test('CP-07: consulta el inventario del producto antes de agregarlo', () => {
+    // Preparar
+    const { carrito, producto, inventario } = prepararCarrito(10);
+
+    // Ejecutar
+    carrito.agregarProducto(producto, 2);
+
+    // Verificar
+    expect(inventario.obtenerStock).toHaveBeenCalledTimes(1);
+    expect(inventario.obtenerStock).toHaveBeenCalledWith('arroz');
+    expect(carrito.obtenerProductos()).toEqual([
+      { ...producto, cantidad: 2 },
+    ]);
+  });
+
+  test('CP-33: rechaza una cantidad acumulada superior a 50', () => {
+    // Preparar
+    const { carrito, producto } = prepararCarrito();
+    carrito.agregarProducto(producto, 30);
+
+    // Ejecutar
+    const superarLimite = () => {
+      carrito.agregarProducto(producto, 21);
+    };
+
+    // Verificar
+    expect(superarLimite).toThrow('Cantidad invalida');
+    expect(carrito.obtenerProductos()).toEqual([
+      { ...producto, cantidad: 30 },
+    ]);
+  });
+
+  test('CP-34: verifica el stock para la cantidad acumulada', () => {
+    // Preparar
+    const { carrito, producto } = prepararCarrito(5);
+    carrito.agregarProducto(producto, 3);
+
+    // Ejecutar
+    const superarStock = () => {
+      carrito.agregarProducto(producto, 3);
+    };
+
+    // Verificar
+    expect(superarStock).toThrow('Stock insuficiente');
+    expect(carrito.obtenerProductos()).toEqual([
+      { ...producto, cantidad: 3 },
+    ]);
+  });
+});
