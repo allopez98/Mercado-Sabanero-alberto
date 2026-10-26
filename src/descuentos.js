@@ -1,13 +1,19 @@
+const UMBRAL_DESCUENTO_MEDIO = 200000;
+const UMBRAL_DESCUENTO_ALTO = 500000;
+
+const PORCENTAJE_MEDIO = 5;
+const PORCENTAJE_ALTO = 10;
+
 function calcularDescuentoVolumen(subtotal) {
-  if (subtotal >= 500000) {
-    return Math.round(subtotal * 10 / 100);
+  let porcentaje = 0;
+
+  if (subtotal >= UMBRAL_DESCUENTO_ALTO) {
+    porcentaje = PORCENTAJE_ALTO;
+  } else if (subtotal >= UMBRAL_DESCUENTO_MEDIO) {
+    porcentaje = PORCENTAJE_MEDIO;
   }
 
-  if (subtotal >= 200000) {
-    return Math.round(subtotal * 5 / 100);
-  }
-
-  return 0;
+  return Math.round(subtotal * porcentaje / 100);
 }
 
 module.exports = { calcularDescuentoVolumen };
