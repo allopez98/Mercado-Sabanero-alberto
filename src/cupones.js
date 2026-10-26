@@ -1,5 +1,8 @@
 const { calcularDescuentoVolumen } = require('./descuentos');
 
+const COMPRA_MINIMA_CUPON = 50000;
+const PORCENTAJE_CUPON = 10;
+
 const CUPONES = {
   SABANERO10: { vigente: true },
   ENVIOGRATIS: { vigente: true },
@@ -34,11 +37,11 @@ function calcularBeneficios(subtotal, codigo = null, catalogo = CUPONES) {
     };
   }
 
-  if (subtotal < 50000) {
+  if (subtotal < COMPRA_MINIMA_CUPON) {
     throw new Error('Compra minima de 50000');
   }
 
-  const descuentoCupon = Math.round(subtotal * 10 / 100);
+  const descuentoCupon = Math.round(subtotal * PORCENTAJE_CUPON / 100);
 
   return {
     descuento: Math.max(descuentoVolumen, descuentoCupon),
