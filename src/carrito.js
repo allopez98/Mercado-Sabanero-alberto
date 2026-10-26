@@ -4,10 +4,14 @@ class Carrito {
     this.productos = [];
   }
 
-  agregarProducto(producto, cantidad) {
+  validarCantidad(cantidad) {
     if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 50) {
       throw new Error('Cantidad invalida');
     }
+  }
+
+  agregarProducto(producto, cantidad) {
+    this.validarCantidad(cantidad);
 
     const existente = this.productos.find(
       item => item.id === producto.id
@@ -16,9 +20,7 @@ class Carrito {
     const cantidadActual = existente ? existente.cantidad : 0;
     const cantidadTotal = cantidadActual + cantidad;
 
-    if (cantidadTotal > 50) {
-      throw new Error('Cantidad invalida');
-    }
+    this.validarCantidad(cantidadTotal);
 
     const stock = this.inventario.obtenerStock(producto.id);
 
