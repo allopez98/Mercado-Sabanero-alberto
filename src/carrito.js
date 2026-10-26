@@ -5,7 +5,10 @@ class Carrito {
   }
 
   agregarProducto(producto, cantidad) {
-    throw new Error('Pendiente de implementar');
+    this.productos.push({
+      ...producto,
+      cantidad,
+    });
   }
 
   obtenerProductos() {
