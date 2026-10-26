@@ -1,5 +1,8 @@
 function calcularIva(subtotal, tarifa, descuento = 0) {
-  return Math.round((subtotal - descuento) * tarifa / 100);
+  const baseGravable = subtotal - descuento;
+  const impuesto = baseGravable * tarifa / 100;
+
+  return Math.round(impuesto);
 }
 
 module.exports = { calcularIva };
