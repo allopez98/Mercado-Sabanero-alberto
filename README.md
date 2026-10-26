@@ -74,9 +74,9 @@ Cada historia se desarrollará mediante ciclos TDD:
 Los commits utilizarán los prefijos test:, feat: y refactor:
 para evidenciar cada etapa.
 
-## Estado inicial
+## Estado del proyecto
 
-Proyecto preparado. Las pruebas y las historias aún no están implementadas.
+Las seis historias estan implementadas. La ejecucion final registra 43 pruebas exitosas y 98,83 % de cobertura de lineas.
 
 ## Uso de inteligencia artificial
 
