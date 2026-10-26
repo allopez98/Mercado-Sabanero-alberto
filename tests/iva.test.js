@@ -43,3 +43,18 @@ describe('HU-02: calcular IVA', () => {
     expect(resultado).toBe(5);
   });
 });
+
+describe('Revision de HU-02: redondeo', () => {
+  test('CP-37: redondea medio peso hacia arriba', () => {
+    // Preparar
+    const subtotal = 110;
+    const tarifa = 5;
+    const descuento = 0;
+
+    // Ejecutar
+    const resultado = calcularIva(subtotal, tarifa, descuento);
+
+    // Verificar
+    expect(resultado).toBe(6);
+  });
+});

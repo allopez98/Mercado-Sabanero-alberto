@@ -52,3 +52,18 @@ describe('HU-06: acumular puntos', () => {
     });
   });
 });
+
+describe('Revision de HU-06: limite exacto', () => {
+  test('CP-38: otorga un punto por exactamente mil pesos sin envio', () => {
+    // Preparar
+    const total = 9000;
+    const envio = 8000;
+    const categoria = 'ESTÁNDAR';
+
+    // Ejecutar
+    const resultado = calcularPuntos(total, envio, categoria);
+
+    // Verificar
+    expect(resultado).toBe(1);
+  });
+});
