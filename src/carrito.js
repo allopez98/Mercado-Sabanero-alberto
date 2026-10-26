@@ -9,10 +9,31 @@ class Carrito {
       throw new Error('Cantidad invalida');
     }
 
-    this.productos.push({
-      ...producto,
-      cantidad,
-    });
+    const existente = this.productos.find(
+      item => item.id === producto.id
+    );
+
+    const cantidadActual = existente ? existente.cantidad : 0;
+    const cantidadTotal = cantidadActual + cantidad;
+
+    if (cantidadTotal > 50) {
+      throw new Error('Cantidad invalida');
+    }
+
+    const stock = this.inventario.obtenerStock(producto.id);
+
+    if (cantidadTotal > stock) {
+      throw new Error('Stock insuficiente');
+    }
+
+    if (existente) {
+      existente.cantidad = cantidadTotal;
+    } else {
+      this.productos.push({
+        ...producto,
+        cantidad: cantidadTotal,
+      });
+    }
   }
 
   obtenerProductos() {
