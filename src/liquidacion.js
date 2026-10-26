@@ -1,12 +1,18 @@
 const { calcularIva } = require('./iva');
 const { calcularBeneficios } = require('./cupones');
 
+const UMBRAL_ENVIO_GRATIS = 150000;
+const ENVIO_SINCELEJO = 8000;
+const ENVIO_OTROS_MUNICIPIOS = 15000;
+
 function calcularEnvio(municipio, valorProductos, envioGratis = false) {
-  if (envioGratis || valorProductos >= 150000) {
+  if (envioGratis || valorProductos >= UMBRAL_ENVIO_GRATIS) {
     return 0;
   }
 
-  return municipio === 'Sincelejo' ? 8000 : 15000;
+  return municipio === 'Sincelejo'
+    ? ENVIO_SINCELEJO
+    : ENVIO_OTROS_MUNICIPIOS;
 }
 
 function liquidarCompra(productos, municipio, codigo = null) {
