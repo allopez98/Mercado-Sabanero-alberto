@@ -83,3 +83,49 @@ Proyecto preparado. Las pruebas y las historias aún no están implementadas.
 Se utiliza ChatGPT como apoyo para la orientación, preparación y revisión
 del trabajo. El autor es responsable de ejecutar, comprender y explicar
 el código y las pruebas durante la sustentación.
+
+## Estado de la implementacion
+
+Se implementaron las seis historias de usuario:
+carrito, IVA, descuentos por volumen, cupones, envio y puntos.
+
+La suite contiene 43 casos automatizados.
+Los resultados de la ejecucion se conservan en:
+evidencias/resultados-pruebas.json.
+
+## Ejecutar desde una copia nueva
+
+git clone https://github.com/allopez98/Mercado-Sabanero-alberto.git
+cd Mercado-Sabanero-alberto
+npm ci
+npm test -- --runInBand
+npm run coverage -- --runInBand
+
+## Reporte de cobertura
+
+El reporte visual se genera en coverage/index.html.
+En Git Bash para Windows puede abrirse con:
+
+explorer.exe coverage/index.html
+
+Se exige un minimo del 80 % de cobertura de lineas.
+La configuracion incluye todos los archivos JavaScript de src/.
+
+## Documentacion y evidencias
+
+- docs/plan-pruebas.md
+- docs/matriz-casos.md
+- docs/revision-pruebas.md
+- docs/registro-defectos.md
+- evidencias/
+
+La carpeta coverage/ se genera localmente y no se versiona.
+Una copia del resumen se conserva en evidencias/cobertura-resumen.json.
+
+## Limitaciones y decisiones
+
+Las interpretaciones sobre cantidades acumuladas, envio gratuito,
+compra minima y redondeo se documentan en el plan de pruebas.
+
+El proyecto es individual. La adaptacion de revision entre pares
+y coevaluacion debe confirmarse con la docente.
